@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 //material
 import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
+import Tooltip from '@material-ui/core/Tooltip';
 
 //custom components
 import Yii2TdType from "./Yii2TdType";
@@ -35,32 +36,39 @@ const useStyles = actions => makeStyles({
     }
 });
 
-
 const InitActions = {
     buttons: [],
     showWhen: {}
 };
 
-
-
-const Yii2RowTable = ({ name, className = '', type, actions = InitActions, rowBody = {}, showInTable = true, onDelete }) => {
-    const actionsLength = Object.keys(actions).length;
-    const classes = useStyles(actions.buttons.length + 1)();
+const Yii2RowTable = ({ 
+        name,
+        className = '',
+        type,
+        actions,
+        rowBody = {},
+        showInTable = true,
+        onDelete
+    }) => {
+    actions = { ...InitActions, ...actions };
     const buttons = actions.buttons || [];
+    const classes = useStyles(buttons.length + (actions.delete ? 1 : 0))(); 
 
     const condition = (!actions.showWhen.regExp) ||
         (actions.showWhen.regExp && new RegExp(actions.showWhen.regExp).test(rowBody[actions.showWhen.field]));
 
     //actions logic
     return <React.Fragment>
-        {(!!actionsLength && type === "primary") && <TableCell align="right" component="th" scope="row" className={className}>
+        {(!!actions && type === "primary") && <TableCell align="right" component="th" scope="row" className={className}>
             <div className={classes.actions}>
                 {condition && <div>
-                    {buttons.map((rowButtons, keyButtons) => <IconButton key={keyButtons} className={classes.buttonShow} onClick={() => {
-                        if (rowButtons.onClick) rowButtons.onClick(rowBody);
-                        else throw new Error('onClick prop action is required in Yii2DataProvider Component!');
-                    }
-                    } > {rowButtons.Icon} </IconButton>)}
+                    {buttons.map((rowButtons, keyButtons) => <Tooltip key={keyButtons} title={rowButtons.tooltip} >
+                        <IconButton className={classes.buttonShow} onClick={() => {
+                            if (rowButtons.onClick) rowButtons.onClick(rowBody);
+                            else throw new Error('onClick prop action is required in Yii2DataProvider Component!');
+                        }
+                        } > {rowButtons.Icon} </IconButton>
+                    </Tooltip>)}
                     {actions.delete && <IconButton className={classes.buttonDelete} onClick={() => {
                         onDelete(rowBody[name]);
                     }

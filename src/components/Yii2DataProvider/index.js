@@ -32,12 +32,21 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Yii2DataProvider = ({ api, columnsHeader, pagination, searchLabel = 'Search', filters = false, advancedFiltersLabel = 'Toggle advanced filters', ...rest } ) => {
+const Yii2DataProvider = ({ 
+        api,
+        columnsHeader,
+        pagination,
+        searchLabel = 'Search',
+        filters = false,
+        advancedFiltersLabel = 'Toggle advanced filters',
+        initGetParams = {},
+        ...rest
+    } ) => {
     
     //hooks
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [stateForm, setStateForm] = useState({});
+    const [stateForm, setStateForm] = useState(initGetParams);
     const [showFilters, setShowFilters] = useState(false);
 
     const classes = useStyles();
@@ -54,10 +63,10 @@ const Yii2DataProvider = ({ api, columnsHeader, pagination, searchLabel = 'Searc
 
     // load
     useEffect(() => {
-        publishYii2DataProvider(api, columnsHeader,initialPostYii2DataProvider);
+        handdleSearch();
     }, []);
 
-    const handleChangePage = (event, newPage) => {
+    function handleChangePage (event, newPage) {
         setPage(newPage);
         publishYii2DataProvider(api, columnsHeader,{page: newPage, rowsPerPage});
     };
@@ -70,7 +79,7 @@ const Yii2DataProvider = ({ api, columnsHeader, pagination, searchLabel = 'Searc
 
     //delete
     const handleDelete = (id) => {
-        publishYii2DataProvider(api, columnsHeader,{ page, rowsPerPage });
+        handdleSearch();
     };
 
     //handle set state form

@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import RowTable from "./Yii2RowTable";
 
 
-function Yii2TableBody({ items, columnsHeader, pagination = null, showPaginationTop = false, actions = {}, onDelete, className = '', actionsLabel = 'Actions' }) {
+function Yii2TableBody({ items, columnsHeader, pagination = null, showPaginationTop = false, actions = null, onDelete, className = '', actionsLabel = 'Actions' }) {
   return (
     <div>
       <TableContainer className={className} component={Paper}>
@@ -23,7 +23,7 @@ function Yii2TableBody({ items, columnsHeader, pagination = null, showPagination
             {showPaginationTop && <TableRow>{pagination}</TableRow>}
             <TableRow>
 
-              {!!Object.keys(actions).length && <TableCell >{actionsLabel}</TableCell>}
+              {!!actions && <TableCell >{actionsLabel}</TableCell>}
 
               {columnsHeader.map((rowHeader, idHeader) => {
 
