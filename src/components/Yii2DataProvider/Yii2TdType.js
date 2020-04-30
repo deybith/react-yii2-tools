@@ -9,9 +9,10 @@ import TableCell from '@material-ui/core/TableCell';
 const useStyles = color => makeStyles({
     stateColor: {
         "width": "14px",
+        "height": "14px",
         "float": "left",
         "marginTop": "3px",
-        "borderRadius": "50 %",
+        "borderRadius": "50%",
         "backgroundColor": color,
     }
 });
@@ -19,10 +20,10 @@ const useStyles = color => makeStyles({
 
 const Yii2TdType = ({ className, type, rowBody, name }) => {
     
-    const classes = useStyles(rowBody.color)();
+    const classes = useStyles(rowBody[name])();
     let content = null;
 
-    if (type === "status" && rowBody.color) {
+    if (type === "status" && rowBody[name]) {
         content = <div className={classes.stateColor} />;
     } else {
         content = rowBody[name];

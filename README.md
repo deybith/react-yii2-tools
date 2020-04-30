@@ -60,7 +60,6 @@
 
 # Props
 
-```sh
 | Name | Type | Description |
 |------|------|-------------|
 | api  | json  | Data for fetch request, url attribute is required |
@@ -72,4 +71,3 @@
 | searchLabel  | string  | Search Button Label for filters |
 | advancedFiltersLabel  | string  | Advanced filters label |
 | columnsHeader  | json  | { name, label, number, filter, isPrimary, showInTable, ...rest	} |
-```
