@@ -50,26 +50,20 @@ const Yii2DataProvider = ({
     const [showFilters, setShowFilters] = useState(false);
 
     const classes = useStyles();
-    const {url} = api;
-
-    const initialPostYii2DataProvider = {
-        url,
-        page,
-        rowsPerPage,
-    };
     
     const { service, publishYii2DataProvider, Yii2DataProviderDeleteService } = usePostYii2DataProviderService();
 
 
     // load
     useEffect(() => {
-        handdleSearch();
-    }, []);
+        setStateForm(initGetParams);
+        handdleSearch(initGetParams);
+    }, [initGetParams]);
 
-    function handleChangePage (event, newPage) {
+    function handleChangePage(event, newPage) {
         setPage(newPage);
         publishYii2DataProvider(api, columnsHeader,{page: newPage, rowsPerPage});
-    };
+    }
     
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
@@ -90,8 +84,8 @@ const Yii2DataProvider = ({
         });    
     };
 
-    const handdleSearch = () => {
-        publishYii2DataProvider(api, columnsHeader, { page, rowsPerPage, filters: stateForm });
+    const handdleSearch = (initGetParams = {}) => {
+        publishYii2DataProvider(api, columnsHeader, { page, rowsPerPage, filters: { ...stateForm, ...initGetParams} });
     };
     
     if (service.status==='loading') {

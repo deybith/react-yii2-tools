@@ -1,6 +1,6 @@
 {
   "name": "react-yii2-tools",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "Based on https://material-ui.com with additional features",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
@@ -74,6 +74,7 @@
     "react-datetime": "^2.16.3",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.3.12",
+    "react-router-dom": "^5.2.0",
     "react-select": "^2.2.0",
     "typescript": "^3.2.2",
     "webpack": "^4.27.1",

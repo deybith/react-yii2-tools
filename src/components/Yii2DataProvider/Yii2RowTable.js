@@ -59,7 +59,7 @@ const Yii2RowTable = ({
 
     //actions logic
     return <React.Fragment>
-        {(!!actions && type === "primary") && <TableCell align="right" component="th" scope="row" className={className}>
+        {((!!actions.buttons.length || !!actions.delete) && type === "primary") && <TableCell align="right" component="th" scope="row" className={className}>
             <div className={classes.actions}>
                 {condition && <div>
                     {buttons.map((rowButtons, keyButtons) => <Tooltip key={keyButtons} title={rowButtons.tooltip} >
